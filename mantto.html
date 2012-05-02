@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="conten-type" content="text/html; charset=UTF-8" />
+<title>14Pasos: Administracion</title>
+<link rel="stylesheet" href="css/estilo_principal.css"/>
+<link rel="stylesheet" href="css/menu.css"/>
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+
+<script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/mensajes.js"></script>
+<script type="text/javascript" src="js/jquery.pajinate.js"></script>
+<script type="text/javascript" src="js/ajaxupload.3.6.js"></script>
+
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/peticion.js"></script>
+<script type="text/javascript" src="js/subir.js"></script>
+
+<script type="text/javascript">
+$(function(){
+  menu();
+});
+</script>
+</head>
+<body>
+<div id="encabezado" style="background-image:url(img/sistema/pleca_superior.jpg); background-repeat:no-repeat; height:150px;"></div>
+
+<div id="mnu" style="width:1280px;background:#222;height:35px;">
+    <ul class="topnav">  
+         <li class="admin">
+            <a id="admon_usuarios" href="#"> Mantto. Usuarios</a>
+        </li>
+        <li class="admin">   
+            <a href="#">Cat&aacute;logo GPS</a>  
+            <ul class="subnav">  
+                <li><a id="gps_carga_individual" href="#">Carga Individual</a></li>  
+                <li><a id="gps_carga_masiva" href="#">Carga Masiva</a></li> 
+                <li><a id="gps_administrar_fotos" href="#">Administrar Fotos</a></li>  
+            </ul>  
+        </li>  
+       
+        <li class="user admin">  
+            <a href="#">Cat&aacute;logo Arte</a>
+            <ul class="subnav">  
+                <li><a id="art_carga_individual" href="#">Carga Individual</a></li>  
+                <li><a id="art_carga_masiva" href="#">Carga Masiva</a></li> 
+                <li><a id="art_administrar_fotos" href="#">Administrar Fotos</a></li> 
+            </ul>
+         </li>
+   </ul>     
+</div>
+
+<div id="area_trabajo" style="width:1000px; height:700px; float:left;">
+
+</div>
+
+
+</body>
+</html>

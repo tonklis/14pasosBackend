@@ -1,0 +1,116 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<title>Google Maps JavaScript API v3 Example: Marker Simple</title> 
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+
+<script type="text/javascript"> 
+var aTweets = [];
+var aFotos = [];
+var coords=[];
+var division;
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(19.44, -99.1);
+    var myOptions = {
+      zoom: 10,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+  
+
+var url = "http://macrosport.com.mx/14pasos/api/consulta.json";
+
+	$.getJSON(url, function(data) {
+	  $.each(data, function(key, val) {
+		var ll = new google.maps.LatLng(val.latitud, val.longitud);
+		var marker = new google.maps.Marker({
+		  	position: ll,
+			icon:"http://antiturista.com/images/relax_pin.png",
+			map: map,
+			fotografo: val.fotografo
+		  });
+			google.maps.event.addListener(marker, 'click', function(e){
+				html = "Fotografo:"+marker.fotografo +" <br> ";
+				document.getElementById('content').innerHTML = html;
+
+			});
+			aFotos.push(marker);	
+			coords.push(ll);
+				
+		 var tweeturl= "http://search.twitter.com/search.json?q=&geocode="+val.latitud+"%2C"+val.longitud+"%2C1km&callback=?";
+		 $.getJSON(tweeturl, function(result) {
+			  $.each(result.results, function(keyTweet, tweet) {
+				//creo tuit y pusheo
+			
+				// var neartweet = {};
+				// 				neartweet.usuario = tweet.from_user;
+				// 				neartweet.image = tweet.profile_image_url;
+				// 				neartweet.textTweet = tweet.text;
+				// 				
+				// 				tweets.push(neartweet);
+				var rndLat = keyTweet % 2 == 0 ? Math.random() : -1 * Math.random();
+				var rndLon = keyTweet % 2 != 0 ? Math.random() : -1 * Math.random();
+				
+				var markerTweet = new google.maps.Marker({
+				  	position: new google.maps.LatLng(ll.lat()+ (rndLat/100), ll.lng()+ (rndLon/100)),
+				 	usuario: tweet.from_user,
+			
+					
+					map: map
+				});
+				google.maps.event.addListener(markerTweet, 'click', function(e){
+						alert(markerTweet.usuario);
+						
+				});
+				aTweets.push(markerTweet);	
+				
+			  });
+	  	});
+	  });
+	 division = new google.maps.Polyline({
+		path: coords,
+		strokeColor: "",
+		strokeOpacity: 1.0,
+		strokeWeight: 7
+	});
+	division.setMap(map);
+	});
+
+  }
+
+function alertok (){
+	for (var i in aFotos) {
+		aFotos[i].setVisible(document.getElementById("filtrof").checked);
+			
+
+	}
+	for (var i in aTweets) {
+		aTweets[i].setVisible(document.getElementById("filtrot").checked);
+			
+
+	}
+	
+
+
+	division.setOptions({strokeOpacity:document.getElementById("filtrol").checked ? 1 : 0});
+}
+
+</script> 
+</head> 
+<body onload="initialize()"> 
+	<input type="checkbox" onClick="alertok()" id="filtrof" name="option1" value="Fotos" checked> Fotos<br>
+		<input type="checkbox" onClick="alertok()" id="filtrol" name="option2" value="Lineas" checked> Lineas<br>
+	<input type="checkbox" onClick="alertok()" id="filtrot" name="option3" value="Tweets" checked> Tweets<br>
+  <div style="height:80%;" id="map_canvas"></div> 
+<div id="content">
+	
+</div>
+</body> 
+</html>
